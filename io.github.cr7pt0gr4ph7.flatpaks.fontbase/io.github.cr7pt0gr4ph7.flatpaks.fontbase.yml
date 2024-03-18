@@ -8,10 +8,17 @@ command: fontbase-app
 finish-args:
   # Vulkan / OpenGL access
   - --device=dri
+  # IF WINDOW_MANAGER == X11
+  # X11 + XShm access
+  # - --share=ipc
+  # - --socket=x11
+  # ELSIF WiNDOW_MANAGER == WAYLAND
   # X11 + XShm access
   - --share=ipc
-  - --socket=x11
-  # - --socket=wayland
+  - --socket=fallback-x11
+  # Wayland access
+  - --socket=wayland
+  # ENDIF
   # Needs to talk to the network
   - --share=network
 cleanup:
@@ -56,7 +63,7 @@ modules:
         dest-filename: fontbase-app
         commands:
           - export TMPDIR=$XDG_RUNTIME_DIR/app/${FLATPAK_ID}
-          - exec zypak-wrapper /app/extra/fontbase-app "$@"
+          - exec zypak-wrapper /app/extra/fontbase-app --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto "$@"
       - type: script
         dest-filename: stub_sandbox
         commands:
