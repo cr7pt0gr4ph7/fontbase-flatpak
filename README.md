@@ -1,4 +1,4 @@
-# fontbase-flatpakefin
+# fontbase-flatpak
 Repackages the [AppImage] for the [FontBase] font management application as a [Flatpak], because I wanted to use FontBase on my immutable [Bluefin]-based system.
 Inspired by [tinywrkb/flatpaks] and based on the [andyholmes/flatter] GitHub action and [flatpak-builder].
 
