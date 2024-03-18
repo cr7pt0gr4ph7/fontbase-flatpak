@@ -27,6 +27,10 @@ modules:
     build-commands:
       - install -Dm755 -t /app/bin/
           apply_extra fontbase-app stub_sandbox
+      - |
+        for s in 16 32 48 64 128 256 512; do
+          install -Dm644 ${s}.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
+        done
       - install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications/
     sources:
       - type: extra-data
@@ -44,10 +48,7 @@ modules:
           - rm -f appimage
           - rm -f squashfs-root/{.DirIcon,AppRun,fontbase-app.desktop,fontbase-app.png}
           - rm -f squashfs-root/{libEGL.so,libGLESv2.so,libvulkan.so.1,libvk_swiftshader.so}
-          - |
-            for s in 16 32 48 64 128 256 512; do
-              install -Dm644 squashfs-root/usr/share/icons/hicolor/${s}x${s}/apps/fontbase-app.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
-            done
+          - rm -f squashfs-root/resources/app-update.yml
           - rm -rf squashfs-root/usr
           - mv squashfs-root/* ./
           - rmdir squashfs-root
@@ -65,5 +66,19 @@ modules:
             exit 1
       - type: file
         path: io.github.cr7pt0gr4ph7.flatpaks.fontbase.desktop
+      - type: file
+        path: icons/16.png
+      - type: file
+        path: icons/32.png
+      - type: file
+        path: icons/48.png
+      - type: file
+        path: icons/64.png
+      - type: file
+        path: icons/128.png
+      - type: file
+        path: icons/256.png
+      - type: file
+        path: icons/512.png
     modules:
       - ../shared-modules/unappimage/unappimage.json
