@@ -34,6 +34,9 @@ modules:
         url: https://releases.fontba.se/linux/FontBase-2.20.7.AppImage
         sha256: d21c2ab57aaa167875383c7858b139766c5c6003e6c2b5e6193e609046e8ba95
         size: 110080898
+        x-checker-data:
+          type: electron-updater
+          url: https://releases.fontba.se/linux/latest-linux.yml
       - type: script
         dest-filename: apply_extra
         commands:
