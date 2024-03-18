@@ -1,0 +1,66 @@
+app-id: io.github.cr7pt0gr4ph7.flatpaks.fontbase
+runtime: org.freedesktop.Platform
+runtime-version: '23.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '23.08'
+command: fontbase-app
+finish-args:
+  # Vulkan / OpenGL access
+  - --device=dri
+  # X11 + XShm access
+  - --share=ipc
+  - --socket=fallback-x11
+  # Wayland access
+  - --socket=wayland
+  # Needs to talk to the network
+  - --share=network
+cleanup:
+  - /include
+  - /lib/pkgconfig
+  - /share/man
+  - '*.a'
+  - '*.la'
+modules:
+  - name: fontbase
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 -t /app/bin/
+          apply_extra fontbase-app stub_sandbox
+      - install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications/
+    sources:
+      - type: extra-data
+        filename: appimage
+        url: https://releases.fontba.se/linux/FontBase-2.20.7.AppImage
+        sha256: d21c2ab57aaa167875383c7858b139766c5c6003e6c2b5e6193e609046e8ba95
+        size: 110080898
+      - type: script
+        dest-filename: apply_extra
+        commands:
+          - unappimage appimage &>/dev/null
+          - rm -f appimage
+          - rm -f squashfs-root/{.DirIcon,AppRun,fontbase-app.desktop,fontbase-app.png}
+          - rm -f squashfs-root/{libEGL.so,libGLESv2.so,libvulkan.so.1,libvk_swiftshader.so}
+          - |
+            for s in 16 32 48 64 128 256 512; do
+              install -Dm644 squashfs-root/usr/share/icons/hicolor/${s}x${s}/apps/fontbase-app.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
+            done
+          - rm -rf squashfs-root/usr
+          - mv squashfs-root/* ./
+          - rmdir squashfs-root
+          - install -Dm755 /app/bin/stub_sandbox chrome-sandbox
+      - type: script
+        dest-filename: fontbase-app
+        commands:
+          - export TMPDIR=$XDG_RUNTIME_DIR/app/${FLATPAK_ID}
+          - exec zypak-wrapper /app/extra/fontbase-app "$@"
+      - type: script
+        dest-filename: stub_sandbox
+        commands:
+          - |
+            echo Stub sandbox ignoring command: $@
+            exit 1
+      - type: file
+        path: io.github.cr7pt0gr4ph7.flatpaks.fontbase.desktop
+    modules:
+      - ../shared-modules/unappimage/unappimage.json
