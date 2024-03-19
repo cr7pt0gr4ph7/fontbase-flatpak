@@ -8,13 +8,16 @@ on:
 jobs:
   flatpak-external-data-checker:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     strategy:
       matrix:
         branch: [ master ] # list all branches to check
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4                                 
         with:
           ref: ${{ matrix.branch }}
 

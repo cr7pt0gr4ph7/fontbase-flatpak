@@ -13,6 +13,8 @@ jobs:
     container:
       image: ghcr.io/andyholmes/flatter/gnome:44
       options: --privileged
+    permissions:
+      contents: read
 
     strategy:
       matrix:
