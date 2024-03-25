@@ -40,8 +40,7 @@ modules:
   - name: fontbase
     buildsystem: simple
     build-commands:
-      - install -Dm755 -t /app/bin/
-          apply_extra fontbase-app stub_sandbox
+      - install -Dm755 -t /app/bin/ apply_extra fontbase-app stub_sandbox
       - |
         for s in 16 32 48 64 128 256 512; do
           install -Dm644 ${s}.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
@@ -50,8 +49,8 @@ modules:
     sources:
       - type: extra-data
         filename: appimage
-        url: https://releases.fontba.se/linux/FontBase-2.20.1.AppImage
-        sha256: d21c2ab57aaa167875383c7858b139766c5c6003e6c2b5e6193e609046e0000
+        url: https://releases.fontba.se/linux/FontBase-2.20.7.AppImage
+        sha256: d21c2ab57aaa167875383c7858b139766c5c6003e6c2b5e6193e609046e8ba95
         size: 110080898
         x-checker-data:
           type: electron-updater
@@ -72,7 +71,8 @@ modules:
         dest-filename: fontbase-app
         commands:
           - export TMPDIR=$XDG_RUNTIME_DIR/app/${FLATPAK_ID}
-          - exec zypak-wrapper /app/extra/fontbase-app --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto "$@"
+          - exec zypak-wrapper /app/extra/fontbase-app --enable-features=UseOzonePlatform,WaylandWindowDecorations
+            --ozone-platform-hint=auto "$@"
       - type: script
         dest-filename: stub_sandbox
         commands:
