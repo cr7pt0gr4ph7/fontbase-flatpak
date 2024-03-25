@@ -44,6 +44,8 @@ jobs:
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
           upload-bundles: true
           upload-pages-artifact: true
+          flatpak-builder-args: |
+            --install-deps-from=flathub
 
   deploy:
     name: Deploy
