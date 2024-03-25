@@ -9,12 +9,15 @@ permissions:
   contents: write
   pull-requests: write
 
+# Allow only one concurrent run, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "checker"
+  cancel-in-progress: false
+
 jobs:
   flatpak-external-data-checker:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
 
     strategy:
       matrix:
