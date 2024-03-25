@@ -31,7 +31,6 @@ finish-args:
   - --system-talk-name=org.freedesktop.NetworkManager
   - --system-talk-name=org.freedesktop.UPower
 cleanup:
-cleanup:
   - /include
   - /lib/pkgconfig
   - /share/man
