@@ -13,6 +13,7 @@ jobs:
     container:
       image: ghcr.io/andyholmes/flatter/gnome:44
       options: --privileged
+
     permissions:
       contents: read
 
@@ -38,7 +39,7 @@ jobs:
         uses: andyholmes/flatter@adcf29af6c60fefb5fda4ab1c059ed8a022a69f0
         with:
           files: |
-            io.github.cr7pt0gr4ph7.flatpaks.fontbase/io.github.cr7pt0gr4ph7.flatpaks.fontbase.json
+            io.github.cr7pt0gr4ph7.flatpaks.fontbase/io.github.cr7pt0gr4ph7.flatpaks.fontbase.yml
           arch: ${{ matrix.arch }}
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
           upload-bundles: true
