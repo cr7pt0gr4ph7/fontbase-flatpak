@@ -44,6 +44,7 @@ jobs:
       - name: Create flatpakrepo file
         shell: bash
         run: |
+          jq --version
           github_pages_url=$(curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer {{ secrets.GITHUB_TOKEN }}" \
