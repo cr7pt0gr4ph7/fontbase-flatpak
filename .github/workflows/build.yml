@@ -45,7 +45,9 @@ jobs:
         shell: bash
         run: |
           env
-          /usr/bin/jq --version
+          ls -l /usr/bin
+          ls -l /bin
+          /bin/jq --version
           github_pages_url=$(curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer {{ secrets.GITHUB_TOKEN }}" \
