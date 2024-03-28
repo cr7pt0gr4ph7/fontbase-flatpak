@@ -16,9 +16,6 @@ jobs:
   flatter:
     name: Build Flatpak
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/andyholmes/flatter/gnome:44
-      options: --privileged
 
     permissions:
       contents: read
@@ -44,13 +41,11 @@ jobs:
       - name: Create flatpakrepo file
         shell: bash
         run: |
-          env
-          /usr/bin/jq --version
           github_pages_url=$(curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer {{ secrets.GITHUB_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/${{ github.repository }}/pages | /usr/bin/jq -r .html_url)
+            https://api.github.com/repos/${{ github.repository }}/pages | jq -r .html_url)
 
           cat > default.flatpakrepo <<- EOF
           [Flatpak Repo]
