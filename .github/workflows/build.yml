@@ -59,7 +59,7 @@ jobs:
           Homepage=${{ github.server_url }}/${{ github.repository }}
           Comment=Custom Flatpak repository of ${{ github.repository }} on GitHub
           Description=Custom Flatpak repository of ${{ github.repository }} on GitHub
-          GPGKey=${{ steps.gpg.outputs.fingerprint }}
+          GPGKey=${{ secrets.GPG_PUBLIC_KEY }}
           EOF
 
       - name: Build
