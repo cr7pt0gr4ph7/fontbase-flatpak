@@ -58,7 +58,7 @@ jobs:
           EOF
 
       - name: Build
-        uses: andyholmes/flatter@adcf29af6c60fefb5fda4ab1c059ed8a022a69f0
+        uses: andyholmes/flatter@5a7afa8f3c149fc5862a6f9cb5be801f37c4d423
         with:
           files: |
             io.github.cr7pt0gr4ph7.flatpaks.fontbase/io.github.cr7pt0gr4ph7.flatpaks.fontbase.yml
