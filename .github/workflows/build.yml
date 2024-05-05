@@ -16,6 +16,9 @@ jobs:
   flatter:
     name: Build Flatpak
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/andyholmes/flatter/freedesktop:23.08
+      options: --privileged
 
     permissions:
       contents: read
