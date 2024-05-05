@@ -41,6 +41,9 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
+      - name: Setup jq
+        uses: vegardit/gha-setup-jq@v1
+
       - name: Create flatpakrepo file
         shell: bash
         run: |
