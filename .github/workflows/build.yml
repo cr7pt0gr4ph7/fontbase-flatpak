@@ -57,6 +57,7 @@ jobs:
           [Flatpak Repo]
           Title=github.com/${{ github.repository }}
           Url=$github_pages_url
+          SuggestRemoteName=github.com/${{ github.repository }}
           Homepage=${{ github.server_url }}/${{ github.repository }}
           Comment=Custom Flatpak repository of ${{ github.repository }} on GitHub
           Description=Custom Flatpak repository of ${{ github.repository }} on GitHub
